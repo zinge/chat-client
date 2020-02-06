@@ -1,0 +1,84 @@
+:root {
+  --g-padding: 30px;
+  --v-padding: 10px;
+  --font-size: 20px;
+}
+
+#app {
+  margin: 20px;
+  background: lightblue;
+  border: 1px dashed lightseagreen;
+  border-radius: 4px;
+}
+
+.header,
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--v-padding) var(--g-padding);
+}
+
+#content {
+  padding: var(--g-padding);
+  background: lightcyan;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+#user-name {
+  color: brown;
+  font-size: var(--font-size);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.button {
+  border-radius: 4px;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  font-size: var(--font-size);
+}
+
+#message-input {
+  width: 300px;
+  display: flex;
+  flex-grow: 1;
+  margin-right: var(--v-padding);
+  border: none;
+  padding: 0;
+  height: 33px;
+  font-size: var(--font-size);
+}
+
+.message {
+  border-radius: 4px;
+  background: lightyellow;
+  height: 40px;
+  padding: 0 var(--v-padding);
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: var(--v-padding);
+}
+
+.message__bot {
+  align-self: flex-end;
+}
+
+.message__error {
+  align-self: center;
+  color: red;
+}
+
+.message:last-child {
+  margin-bottom: 0;
+}
+
+.message > span {
+  padding-right: var(--v-padding);
+  display: flex;
+  align-items: center;
+  color: brown;
+}
