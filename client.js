@@ -1,107 +1,97 @@
-"use strict";
+/* eslint-disable max-classes-per-file */
 
 class User {
   constructor(userName, lastName) {
-    this.userName = userName
-    this.lastName = lastName
+    this.userName = userName;
+    this.lastName = lastName;
   }
 
   getUserName() {
-    return this.userName
+    return this.userName;
   }
 
   getLastName() {
-    return this.lastName
+    return this.lastName;
   }
 
   getFullUserName() {
-    return `${this.userName} ${this.lastName}`
+    return `${this.userName} ${this.lastName}`;
   }
 }
 
 class Header {
   constructor(header) {
-    this._header = header
+    this.header = header;
   }
 
-  _getHeaderUserName() {
-    return this._header.querySelector(".header__user-name")
+  getHeaderUserName() {
+    return this.header.querySelector('.header__user-name');
   }
 
-  _getLogoutButton() {
-    return this._header.querySelector(".button")
+  getLogoutButton() {
+    return this.header.querySelector('.button');
   }
 
   setUserName(userName) {
-    this._getHeaderUserName().innerText = userName
+    this.getHeaderUserName().innerText = userName;
   }
 
   setLogoutListener(listener) {
-    this._getLogoutButton().addEventListener('click', listener)
-  }
-}
-
-class Title {
-  constructor(userName) {
-    this._userName = userName
-  }
-
-  getTitle() {
-    const title = document.createElement("span");
-    title.innerText = `${this._userName} say:`;
-
-    return title;
+    this.getLogoutButton().addEventListener('click', listener);
   }
 }
 
 class Content {
-  _messageClassName = "content__message"
-  _botMessageClassName = `${this._messageClassName} content__message--bot`
-  _errorMessageClassName = `${this._messageClassName} content__message--error`
-
   constructor(content) {
-    this._content = content
+    this.content = content;
+    this.messageClassName = 'content__message';
+    this.botMessageClassName = `${this.messageClassName} content__message--bot`;
+    this.errorMessageClassName = `${this.messageClassName} content__message--error`;
   }
 
-  createTitle(title) {
-    this._title = title
+  setMessageTitle(title) {
+    if (!this.title) {
+      this.title = document.createElement('span');
+    }
+
+    this.title.innerText = title;
   }
 
   createMessage(message) {
-    const el = document.createElement("div");
-    el.className = this._messageClassName;
+    const el = document.createElement('div');
+    el.className = this.messageClassName;
 
-    if (this._title) {
-      el.appendChild(this._title);
+    if (this.title) {
+      el.appendChild(this.title);
     }
 
     el.append(message);
 
-    this._content.appendChild(el);
+    this.content.appendChild(el);
   }
 
   createBotMessage(message) {
-    const el = document.createElement("div");
-    el.className = this._botMessageClassName;
+    const el = document.createElement('div');
+    el.className = this.botMessageClassName;
 
     el.append(message);
 
-    this._content.appendChild(el);
+    this.content.appendChild(el);
   }
 
   createErrorMessage(message) {
-    const el = document.createElement("div");
-    el.className = this._errorMessageClassName;
+    const el = document.createElement('div');
+    el.className = this.errorMessageClassName;
 
     el.append(message);
 
-    this._content.appendChild(el);
+    this.content.appendChild(el);
   }
 
   delErrors() {
-    this._content.childNodes.forEach(i => {
-      if (i.className === this._errorMessageClassName) {
-        content.removeChild(i);
+    this.content.childNodes.forEach((i) => {
+      if (i.className === this.errorMessageClassName) {
+        this.content.removeChild(i);
       }
     });
   }
@@ -109,82 +99,83 @@ class Content {
 
 class Footer {
   constructor(footer) {
-    this._footer = footer
+    this.footer = footer;
   }
 
   setSubmitListener(listener) {
-    this._footer.addEventListener('submit', listener)
+    this.footer.addEventListener('submit', listener);
   }
 }
 
 class App {
   constructor(id) {
-    this._app = document.getElementById(id);
-    this._content = new Content(this._app.querySelector(".content"))
-    this._footer = new Footer(this._app.querySelector(".footer"))
-    this._header = new Header(this._app.querySelector(".header"))
+    this.app = document.getElementById(id);
+    this.content = new Content(this.app.querySelector('.content'));
+    this.footer = new Footer(this.app.querySelector('.footer'));
+    this.header = new Header(this.app.querySelector('.header'));
   }
 
   setLogoutListener(listener) {
-    this._header.setLogoutListener(listener)
+    this.header.setLogoutListener(listener);
   }
 
   setSubmitListener(listener) {
-    this._footer.setSubmitListener(listener)
+    this.footer.setSubmitListener(listener);
   }
 
   setHeaderUserName(userName) {
-    this._header.setUserName(userName)
+    this.header.setUserName(userName);
   }
 
   setMessageTitle(title) {
-    this._content.createTitle(title)
+    this.content.setMessageTitle(title);
   }
 
   sendBotMessage(message) {
-    this._content.createBotMessage(message)
+    this.content.createBotMessage(message);
   }
 
   sendMessage(message) {
-    this._content.createMessage(message)
+    this.content.createMessage(message);
   }
 
   sendErrorMessage(message) {
-    this._content.createErrorMessage(message)
+    this.content.createErrorMessage(message);
   }
 
   clearErrorMessages() {
-    this._content.delErrors()
+    this.content.delErrors();
   }
 }
 
 function onLogout() {
-  console.log('Logout pushed: ', new Date())
+  // eslint-disable-next-line no-console
+  console.log('Logout pushed: ', new Date());
 }
 
 function onSubmit(e) {
-  e.preventDefault()
+  e.preventDefault();
 
-  const message = e.target.elements['message']
+  const { message } = e.target.elements;
   if (message.value) {
-    console.log('message value: ', message.value)
-    message.value = ''
+    // eslint-disable-next-line no-console
+    console.log('message value: ', message.value);
+    message.value = '';
   }
 }
 
-window.onload = function () {
-  const user = new User(window.userName, window.lastName)
-  const app = new App('app')
-  const title = new Title(user.getUserName())
+window.onload = function onload() {
+  const user = new User(window.userName, window.lastName);
+  const app = new App('app');
 
-  app.setLogoutListener(onLogout)
-  app.setSubmitListener(onSubmit)
+  app.setLogoutListener(onLogout);
+  app.setSubmitListener(onSubmit);
 
-  app.setHeaderUserName(user.getFullUserName())
-  app.setMessageTitle(title.getTitle())
+  app.setHeaderUserName(user.getFullUserName());
+  app.setMessageTitle(`${user.getUserName()} say:`);
 
-  app.sendMessage("Hello world!!!")
-  app.sendBotMessage("Bot message!!!")
-  app.sendErrorMessage("Has Error")
+  app.sendMessage('Hello world!!!');
+  app.sendBotMessage('Bot message!!!');
+  app.sendErrorMessage('Has Error');
   // app.clearErrorMessages()
-}
+};

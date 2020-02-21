@@ -1,6 +1,6 @@
 :root {
-  --g-padding: 30px;
-  --v-padding: 10px;
+  --g-padding: 32px;
+  --v-padding: 12px;
   --font-size: 20px;
   --username-color: brown;
 }
@@ -32,7 +32,7 @@
   margin-right: var(--v-padding);
   border: none;
   padding: 0;
-  height: 33px;
+  height: 32px;
   font-size: var(--font-size);
   min-width: 20px;
 }
@@ -79,7 +79,7 @@
 .button {
   border-radius: 4px;
   border: none;
-  padding: 5px;
+  padding: 4px;
   cursor: pointer;
   font-size: var(--font-size);
 }
